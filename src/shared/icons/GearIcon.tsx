@@ -1,3 +1,6 @@
+import styles from './Icon.module.scss'
+
 export function GearIcon() {
-  return <span className="ios-tabbar__icon ios-tabbar__icon--gear" />
+  const className = styles.icon + ' ' + styles.gear
+  return <span className={className} />
 }
