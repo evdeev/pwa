@@ -12,6 +12,14 @@ $tabbar-height: 68px;
 $content-padding: 20px;
 
 $radius-card: 18px;
+$radius-list: 14px;
+$radius-control: 12px;
 $radius-pill: 999px;
 
-$spring-transition: cubic-bezier(0.22, 1, 0.36, 1);
+$ease-ios: cubic-bezier(0.22, 1, 0.36, 1);
+$ease-ios-fast: cubic-bezier(0.2, 0.8, 0.2, 1);
+$motion-fast: 120ms;
+$motion-default: 180ms;
+$motion-slow: 260ms;
+
+$spring-transition: $ease-ios;
