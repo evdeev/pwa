@@ -1,0 +1,32 @@
+@use './tokens' as *;
+@use './mixins' as *;
+
+@import 'framework7/css/bundle';
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+  background: $app-bg;
+}
+
+html {
+  overscroll-behavior-y: none;
+}
+
+body {
+  overflow-x: hidden;
+  color: $label-primary;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+}
