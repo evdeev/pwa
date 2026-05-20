@@ -10,7 +10,8 @@
   --ios-blue: #007aff;
   --ios-green: #34c759;
   --ios-red: #ff3b30;
-  --tabbar-height: 86px;
+  --tabbar-height: 72px;
+  --content-padding: 20px;
 }
 
 * {
@@ -47,30 +48,30 @@ button {
   top: 0;
   z-index: 100;
   padding-top: env(safe-area-inset-top);
-  background: rgba(242, 242, 247, 0.86);
-  border-bottom: 0.5px solid var(--separator);
+  background: rgba(242, 242, 247, 0.82);
+  border-bottom: 0.5px solid transparent;
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
 }
 
 .ios-navbar__title {
-  padding: 14px 20px 10px;
+  padding: 10px var(--content-padding) 12px;
   font-size: 34px;
   font-weight: 700;
-  letter-spacing: -0.035em;
-  line-height: 1.12;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
 }
 
 .app-content {
-  padding-bottom: calc(var(--tabbar-height) + env(safe-area-inset-bottom) + 32px);
+  padding-bottom: calc(var(--tabbar-height) + env(safe-area-inset-bottom) + 24px);
 }
 
 .page-section {
-  padding: 16px 16px 0;
+  padding: 8px var(--content-padding) 0;
 }
 
 .month-header {
-  margin: 4px 4px 8px;
+  margin: 4px 0 10px;
   color: var(--label-secondary);
   font-size: 13px;
   font-weight: 600;
@@ -92,26 +93,27 @@ button {
   background: var(--card-bg);
   border: 0;
   border-radius: 18px;
-  box-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: transform 0.12s ease, background 0.12s ease;
 }
 
 .session-card:active {
-  transform: scale(0.992);
-  background: #fefefe;
+  transform: scale(0.985);
+  background: #f7f7f7;
 }
 
 .session-card__top {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
+  gap: 14px;
 }
 
 .session-card__title {
   margin: 0 0 5px;
-  font-size: 17px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }
 
 .session-card__meta {
@@ -122,9 +124,12 @@ button {
 }
 
 .session-card__score {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
   white-space: nowrap;
-  font-size: 24px;
-  letter-spacing: -0.035em;
+  font-size: 28px;
+  letter-spacing: -0.05em;
 }
 
 .session-card__score strong {
@@ -133,6 +138,7 @@ button {
 
 .session-card__score span {
   color: var(--label-tertiary);
+  font-size: 20px;
   font-weight: 500;
 }
 
@@ -147,23 +153,50 @@ button {
   font-size: 14px;
 }
 
-.session-card__badge {
-  display: inline-flex;
+.session-card__competition {
+  display: flex;
   align-items: center;
-  gap: 6px;
-  color: var(--ios-blue);
+  gap: 8px;
+}
+
+.session-card__competition-icon {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(0, 122, 255, 0.12);
+}
+
+.session-card__competition-icon::before,
+.session-card__competition-icon::after {
+  position: absolute;
+  content: '';
+  background: var(--ios-blue);
+  border-radius: 999px;
+}
+
+.session-card__competition-icon::before {
+  top: 3px;
+  left: 3px;
+  width: 6px;
+  height: 6px;
+}
+
+.session-card__competition-icon::after {
+  top: 3px;
+  right: 3px;
+  width: 6px;
+  height: 6px;
+}
+
+.session-card__chevron {
+  color: #c7c7cc;
+  font-size: 18px;
   font-weight: 600;
 }
 
-.session-card__badge-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: var(--ios-blue);
-}
-
 .ios-list-card {
-  margin: 16px;
+  margin: 0;
   overflow: hidden;
   background: var(--card-bg);
   border-radius: 14px;
@@ -189,7 +222,7 @@ button {
 }
 
 .placeholder {
-  padding: 32px 20px;
+  padding: 24px 0;
   color: var(--label-tertiary);
   font-size: 17px;
   line-height: 1.35;
@@ -197,12 +230,12 @@ button {
 
 .version-pill {
   position: fixed;
-  right: 12px;
-  bottom: calc(var(--tabbar-height) + env(safe-area-inset-bottom) + 8px);
+  right: 10px;
+  bottom: calc(var(--tabbar-height) + env(safe-area-inset-bottom) + 6px);
   z-index: 150;
   padding: 4px 8px;
   color: var(--label-tertiary);
-  background: rgba(255, 255, 255, 0.74);
+  background: rgba(255, 255, 255, 0.7);
   border: 0.5px solid var(--separator);
   border-radius: 999px;
   font-size: 11px;
@@ -219,8 +252,8 @@ button {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   height: calc(var(--tabbar-height) + env(safe-area-inset-bottom));
-  padding: 8px 8px calc(env(safe-area-inset-bottom) + 8px);
-  background: rgba(249, 249, 249, 0.88);
+  padding: 4px 8px calc(env(safe-area-inset-bottom) + 4px);
+  background: rgba(249, 249, 249, 0.82);
   border-top: 0.5px solid var(--separator);
   backdrop-filter: blur(30px) saturate(180%);
   -webkit-backdrop-filter: blur(30px) saturate(180%);
@@ -231,12 +264,12 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 2px;
   color: var(--label-tertiary);
   background: transparent;
   border: 0;
   border-radius: 12px;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
 }
 
@@ -246,8 +279,8 @@ button {
 
 .ios-tabbar__icon {
   position: relative;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
 }
 
 .ios-tabbar__icon::before,
@@ -264,9 +297,9 @@ button {
 
 .ios-tabbar__icon--clock::after {
   top: 7px;
-  left: 11px;
-  width: 7px;
-  height: 7px;
+  left: 10px;
+  width: 6px;
+  height: 6px;
   border-bottom: 2px solid currentColor;
   border-left: 2px solid currentColor;
 }
@@ -275,7 +308,7 @@ button {
   right: 4px;
   bottom: 4px;
   left: 4px;
-  height: 15px;
+  height: 14px;
   border: 2px solid currentColor;
   border-top: 0;
   border-radius: 0 0 4px 4px;
@@ -285,7 +318,7 @@ button {
   right: 7px;
   bottom: 7px;
   left: 7px;
-  height: 8px;
+  height: 7px;
   border-top: 2px solid currentColor;
   transform: skewY(-18deg);
 }
@@ -297,8 +330,12 @@ button {
 }
 
 .ios-tabbar__icon--gear::after {
-  inset: 10px;
+  inset: 9px;
   background: currentColor;
   border-radius: 999px;
-  box-shadow: 0 -8px 0 -2px currentColor, 0 8px 0 -2px currentColor, 8px 0 0 -2px currentColor, -8px 0 0 -2px currentColor;
+  box-shadow:
+    0 -7px 0 -2px currentColor,
+    0 7px 0 -2px currentColor,
+    7px 0 0 -2px currentColor,
+    -7px 0 0 -2px currentColor;
 }
