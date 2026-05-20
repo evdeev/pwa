@@ -15,17 +15,17 @@ const GearIcon = () => <span className="ios-tabbar__icon ios-tabbar__icon--gear"
 const tabs = [
   {
     id: 'history' as AppTab,
-    title: 'История',
+    label: 'История',
     icon: <ClockIcon />
   },
   {
     id: 'statistics' as AppTab,
-    title: 'Статистика',
+    label: 'Статистика',
     icon: <ChartIcon />
   },
   {
     id: 'settings' as AppTab,
-    title: 'Настройки',
+    label: 'Настройки',
     icon: <GearIcon />
   }
 ]
@@ -34,7 +34,7 @@ export function App() {
   const [activeTab, setActiveTab] = useState<AppTab>('history')
 
   const title = useMemo(() => {
-    return tabs.find((tab) => tab.id === activeTab)?.title ?? 'История'
+    return tabs.find((tab) => tab.id === activeTab)?.label ?? 'История'
   }, [activeTab])
 
   return (
@@ -49,7 +49,11 @@ export function App() {
 
       <div className="version-pill">v{appConfig.version}</div>
 
-      <TabBar items={tabs} activeTab={activeTab} onChange={(tab) => setActiveTab(tab as AppTab)} />
+      <TabBar
+        items={tabs}
+        activeTab={activeTab}
+        onChange={(tab) => setActiveTab(tab as AppTab)}
+      />
     </div>
   )
 }
