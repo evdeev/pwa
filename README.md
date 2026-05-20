@@ -1,12 +1,22 @@
 # Archery PWA
 
-Mobile-first PWA application for archery training sessions.
+Mobile-first PWA для учета тренировок по стрельбе из лука.
 
-Stack:
+## Stack
+
 - React
 - TypeScript
 - Vite
-- Framework7 React
+- Framework7 styles/components foundation
 - vite-plugin-pwa
+- GitHub Actions
+- GitHub Pages
 
-This repository is managed through AI-assisted development workflow.
+## Development workflow
+
+Production branch: `main`.
+Every push to `main` builds static assets and deploys them to GitHub Pages.
+
+Production URL:
+
+https://evdeev.github.io/pwa/
