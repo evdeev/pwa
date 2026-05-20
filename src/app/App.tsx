@@ -2,15 +2,12 @@ import { useMemo, useState } from 'react'
 
 import { Navbar } from '../components/Navbar/Navbar'
 import { TabBar } from '../components/TabBar/TabBar'
+import { ChartIcon, ClockIcon, GearIcon } from '../shared/icons'
 import { HistoryPage } from '../pages/HistoryPage'
 import { StatisticsPage } from '../pages/StatisticsPage'
 import { SettingsPage } from '../pages/SettingsPage'
 import { appConfig } from './config'
 import type { AppTab } from './types'
-
-const ClockIcon = () => <span className="ios-tabbar__icon ios-tabbar__icon--clock" />
-const ChartIcon = () => <span className="ios-tabbar__icon ios-tabbar__icon--chart" />
-const GearIcon = () => <span className="ios-tabbar__icon ios-tabbar__icon--gear" />
 
 const tabs = [
   {
