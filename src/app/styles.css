@@ -10,8 +10,9 @@
   --ios-blue: #007aff;
   --ios-green: #34c759;
   --ios-red: #ff3b30;
-  --tabbar-height: 72px;
+  --tabbar-height: 68px;
   --content-padding: 20px;
+  --spring-transition: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 * {
@@ -25,6 +26,10 @@ body,
   min-height: 100%;
   margin: 0;
   background: var(--app-bg);
+}
+
+html {
+  overscroll-behavior-y: none;
 }
 
 body {
@@ -55,7 +60,7 @@ button {
 }
 
 .ios-navbar__title {
-  padding: 10px var(--content-padding) 12px;
+  padding: 8px var(--content-padding) 12px;
   font-size: 34px;
   font-weight: 700;
   letter-spacing: -0.04em;
@@ -67,11 +72,12 @@ button {
 }
 
 .page-section {
-  padding: 8px var(--content-padding) 0;
+  padding: 6px var(--content-padding) 0;
 }
 
 .month-header {
-  margin: 4px 0 10px;
+  margin: 8px 0 10px;
+  padding-left: 2px;
   color: var(--label-secondary);
   font-size: 13px;
   font-weight: 600;
@@ -85,21 +91,44 @@ button {
 }
 
 .session-card {
+  position: relative;
   display: block;
   width: 100%;
   padding: 16px;
+  overflow: hidden;
   color: inherit;
   text-align: left;
   background: var(--card-bg);
   border: 0;
   border-radius: 18px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-  transition: transform 0.12s ease, background 0.12s ease;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 8px 24px rgba(0, 0, 0, 0.03);
+  transition:
+    transform 180ms var(--spring-transition),
+    background 160ms ease,
+    box-shadow 220ms ease;
+}
+
+.session-card::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+  background: linear-gradient(to bottom, rgba(255,255,255,0.12), transparent);
+  opacity: 0;
+  transition: opacity 160ms ease;
 }
 
 .session-card:active {
   transform: scale(0.985);
   background: #f7f7f7;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.03),
+    0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.session-card:active::after {
+  opacity: 1;
 }
 
 .session-card__top {
@@ -183,6 +212,11 @@ button {
   color: #c7c7cc;
   font-size: 20px;
   font-weight: 600;
+  transition: transform 180ms var(--spring-transition);
+}
+
+.session-card:active .session-card__chevron {
+  transform: translateX(1px);
 }
 
 .ios-list-card {
@@ -221,11 +255,11 @@ button {
 .version-pill {
   position: fixed;
   right: 10px;
-  bottom: calc(var(--tabbar-height) + env(safe-area-inset-bottom) + 6px);
+  bottom: calc(var(--tabbar-height) + env(safe-area-inset-bottom) + 8px);
   z-index: 150;
   padding: 4px 8px;
   color: var(--label-tertiary);
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.72);
   border: 0.5px solid var(--separator);
   border-radius: 999px;
   font-size: 11px;
@@ -242,7 +276,7 @@ button {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   height: calc(var(--tabbar-height) + env(safe-area-inset-bottom));
-  padding: 4px 8px calc(env(safe-area-inset-bottom) + 4px);
+  padding: 2px 8px calc(env(safe-area-inset-bottom) + 4px);
   background: rgba(249, 249, 249, 0.82);
   border-top: 0.5px solid var(--separator);
   backdrop-filter: blur(30px) saturate(180%);
@@ -259,8 +293,16 @@ button {
   background: transparent;
   border: 0;
   border-radius: 12px;
+  transition:
+    transform 180ms var(--spring-transition),
+    opacity 140ms ease,
+    color 160ms ease;
   font-size: 10px;
   font-weight: 500;
+}
+
+.ios-tabbar__item:active {
+  transform: scale(0.94);
 }
 
 .ios-tabbar__item--active {
