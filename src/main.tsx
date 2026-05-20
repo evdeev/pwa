@@ -1,6 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { App, View, Page, Navbar, Block, Card, Toolbar, Link } from 'framework7-react'
+import {
+  App,
+  View,
+  Page,
+  Navbar,
+  Block,
+  Card,
+  Toolbar,
+  Link
+} from 'framework7-react'
 
 import 'framework7/css/bundle'
 
@@ -36,7 +45,7 @@ const f7params = {
 function AppView() {
   return (
     <App {...f7params}>
-      <View main tab tabActive url="/">
+      <View main url="/">
         <Page>
           <Navbar title="Журнал тренировок" large />
 
@@ -66,7 +75,7 @@ function AppView() {
             </Card>
           ))}
 
-          <Toolbar bottom tabbar labels>
+          <Toolbar bottom>
             <Link tabLinkActive text="История" />
             <Link text="Статистика" />
             <Link text="Настройки" />
