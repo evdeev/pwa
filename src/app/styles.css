@@ -112,7 +112,7 @@ button {
 .session-card__title-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
 }
 
 .session-card__title {
@@ -123,8 +123,20 @@ button {
 }
 
 .session-card__competition-medal {
-  margin-top: -2px;
-  font-size: 16px;
+  position: relative;
+  width: 14px;
+  height: 14px;
+  margin-top: -1px;
+  border-radius: 999px;
+  background: rgba(255, 149, 0, 0.18);
+}
+
+.session-card__competition-medal::before {
+  position: absolute;
+  inset: 3px;
+  content: '';
+  border-radius: 999px;
+  background: #ff9500;
 }
 
 .session-card__meta {
@@ -160,9 +172,10 @@ button {
 }
 
 .session-card__average {
-  margin-top: 2px;
-  color: var(--label-tertiary);
-  font-size: 13px;
+  margin-top: 1px;
+  color: var(--label-secondary);
+  font-size: 15px;
+  line-height: 1.35;
 }
 
 .session-card__chevron {
