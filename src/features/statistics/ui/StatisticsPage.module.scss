@@ -2,7 +2,7 @@
 
 .chartPlaceholder {
   height: 220px;
-  border-radius: 28px;
-  background: $surface-primary;
-  box-shadow: $card-shadow;
+  border-radius: $radius-card;
+  background: $card-bg;
+  border: 1px solid $separator;
 }
