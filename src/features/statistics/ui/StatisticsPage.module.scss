@@ -1,0 +1,8 @@
+@use '../../../styles/tokens' as *;
+
+.chartPlaceholder {
+  height: 220px;
+  border-radius: 28px;
+  background: $surface-primary;
+  box-shadow: $card-shadow;
+}
