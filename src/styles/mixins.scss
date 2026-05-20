@@ -1,3 +1,5 @@
+@use './tokens' as *;
+
 @mixin ios-blur($blur: 24px) {
   backdrop-filter: blur($blur) saturate(180%);
   -webkit-backdrop-filter: blur($blur) saturate(180%);
@@ -9,13 +11,25 @@
     0 8px 24px rgba(0, 0, 0, 0.03);
 }
 
-@mixin ios-pressable($transition) {
+@mixin ios-motion($properties: all, $duration: $motion-default) {
+  transition: $properties $duration $ease-ios;
+}
+
+@mixin ios-pressable {
   transition:
-    transform 180ms $transition,
-    background 160ms ease,
-    box-shadow 220ms ease;
+    transform $motion-default $ease-ios,
+    opacity $motion-fast $ease-ios-fast,
+    background $motion-fast ease;
+
+  touch-action: manipulation;
 
   &:active {
+    opacity: 0.72;
     transform: scale(0.985);
   }
+}
+
+@mixin swipe-ready {
+  will-change: transform;
+  touch-action: pan-y;
 }
