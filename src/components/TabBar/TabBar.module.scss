@@ -30,9 +30,8 @@
   font-size: 10px;
   font-weight: 500;
 
-  &:active {
-    transform: scale(0.94);
-  }
+  @include ios-pressable;
+  @include swipe-ready;
 }
 
 .active {
