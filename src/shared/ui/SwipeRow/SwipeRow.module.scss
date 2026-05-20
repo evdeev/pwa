@@ -1,0 +1,8 @@
+@use '../../../styles/mixins' as *;
+
+.row {
+  position: relative;
+
+  @include swipe-ready;
+  @include ios-motion(transform);
+}
