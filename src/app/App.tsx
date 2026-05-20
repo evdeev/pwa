@@ -1,10 +1,12 @@
 import { useMemo, useState } from 'react'
-import { App as Framework7App, View } from 'framework7-react'
+
+import { App as Framework7App } from 'framework7-react'
+
 import { HistoryPage } from '../pages/HistoryPage'
 import { StatisticsPage } from '../pages/StatisticsPage'
 import { SettingsPage } from '../pages/SettingsPage'
-import { appConfig } from './config'
 import { framework7Config } from './framework7'
+import { appConfig } from './config'
 import type { AppTab } from './types'
 
 const tabs: Array<{ id: AppTab; title: string; icon: string }> = [
@@ -22,35 +24,37 @@ export function App() {
 
   return (
     <Framework7App {...framework7Config}>
-      <View main className="safe-areas" url="/">
-        <div className="app-shell">
-          <header className="ios-navbar">
-            <div className="ios-navbar__title">{title}</div>
-          </header>
+      <div className="app-shell">
+        <header className="ios-navbar">
+          <div className="ios-navbar__title">{title}</div>
+        </header>
 
-          <main className="app-content">
-            {activeTab === 'history' && <HistoryPage />}
-            {activeTab === 'statistics' && <StatisticsPage />}
-            {activeTab === 'settings' && <SettingsPage />}
-          </main>
+        <main className="app-content">
+          {activeTab === 'history' && <HistoryPage />}
+          {activeTab === 'statistics' && <StatisticsPage />}
+          {activeTab === 'settings' && <SettingsPage />}
+        </main>
 
-          <div className="version-pill">v{appConfig.version}</div>
+        <div className="version-pill">v{appConfig.version}</div>
 
-          <nav className="ios-tabbar" aria-label="Основная навигация">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                className={tab.id === activeTab ? 'ios-tabbar__item ios-tabbar__item--active' : 'ios-tabbar__item'}
-                type="button"
-                onClick={() => setActiveTab(tab.id)}
-              >
-                <span className={`ios-tabbar__icon ios-tabbar__icon--${tab.icon}`} />
-                <span>{tab.title}</span>
-              </button>
-            ))}
-          </nav>
-        </div>
-      </View>
+        <nav className="ios-tabbar" aria-label="Основная навигация">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              className={
+                tab.id === activeTab
+                  ? 'ios-tabbar__item ios-tabbar__item--active'
+                  : 'ios-tabbar__item'
+              }
+              type="button"
+              onClick={() => setActiveTab(tab.id)}
+            >
+              <span className={`ios-tabbar__icon ios-tabbar__icon--${tab.icon}`} />
+              <span>{tab.title}</span>
+            </button>
+          ))}
+        </nav>
+      </div>
     </Framework7App>
   )
 }
