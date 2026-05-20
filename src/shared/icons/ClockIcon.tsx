@@ -1,3 +1,5 @@
+import styles from './Icon.module.scss'
+
 export function ClockIcon() {
-  return <span className="ios-tabbar__icon ios-tabbar__icon--clock" />
+  return <span className={`${styles.icon} ${styles.clock}`} />
 }
