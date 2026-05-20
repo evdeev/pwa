@@ -1,0 +1,7 @@
+@use '../../../styles/tokens' as *;
+
+.card {
+  overflow: hidden;
+  background: $card-bg;
+  border-radius: 14px;
+}
