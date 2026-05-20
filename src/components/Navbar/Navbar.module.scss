@@ -1,0 +1,21 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding-top: env(safe-area-inset-top);
+  background: rgba(242, 242, 247, 0.82);
+  border-bottom: 0.5px solid transparent;
+
+  @include ios-blur(24px);
+}
+
+.title {
+  padding: 8px $content-padding 12px;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
