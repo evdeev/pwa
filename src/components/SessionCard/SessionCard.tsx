@@ -1,5 +1,7 @@
 import styles from './SessionCard.module.scss'
 
+import { Pressable } from '../../shared/ui/Pressable/Pressable'
+
 export interface SessionCardProps {
   date: string
   meta: string
@@ -18,7 +20,7 @@ export function SessionCard({
   const [current, max] = score.split('/')
 
   return (
-    <button className={styles.card} type="button">
+    <Pressable className={styles.card} type="button">
       <div className={styles.top}>
         <div>
           <div className={styles.titleRow}>
@@ -41,6 +43,6 @@ export function SessionCard({
 
         <div className={styles.chevron}>›</div>
       </div>
-    </button>
+    </Pressable>
   )
 }
