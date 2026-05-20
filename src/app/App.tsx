@@ -4,7 +4,6 @@ import {
   Navbar,
   Page,
   Tab,
-  Tabbar,
   Tabs,
   Toolbar,
   View
@@ -51,7 +50,7 @@ export function App() {
             </Tab>
           </Tabs>
 
-          <Toolbar tabbar bottom>
+          <Toolbar bottom tabbar>
             <Link tabLink="#history" tabLinkActive iconIos="f7:clock" text="История" />
             <Link tabLink="#statistics" iconIos="f7:chart_bar" text="Статистика" />
             <Link tabLink="#settings" iconIos="f7:gear" text="Настройки" />
