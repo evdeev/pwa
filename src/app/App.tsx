@@ -1,11 +1,10 @@
 import { useMemo, useState } from 'react'
-
 import { App as Framework7App, View } from 'framework7-react'
-
 import { HistoryPage } from '../pages/HistoryPage'
 import { StatisticsPage } from '../pages/StatisticsPage'
 import { SettingsPage } from '../pages/SettingsPage'
 import { appConfig } from './config'
+import { framework7Config } from './framework7'
 import type { AppTab } from './types'
 
 const tabs: Array<{ id: AppTab; title: string; icon: string }> = [
@@ -13,11 +12,6 @@ const tabs: Array<{ id: AppTab; title: string; icon: string }> = [
   { id: 'statistics', title: 'Статистика', icon: 'chart' },
   { id: 'settings', title: 'Настройки', icon: 'gear' }
 ]
-
-const f7params = {
-  name: appConfig.name,
-  theme: 'ios'
-}
 
 export function App() {
   const [activeTab, setActiveTab] = useState<AppTab>('history')
@@ -27,8 +21,8 @@ export function App() {
   }, [activeTab])
 
   return (
-    <Framework7App {...f7params}>
-      <View main className="safe-areas">
+    <Framework7App {...framework7Config}>
+      <View main className="safe-areas" url="/">
         <div className="app-shell">
           <header className="ios-navbar">
             <div className="ios-navbar__title">{title}</div>
@@ -46,11 +40,7 @@ export function App() {
             {tabs.map((tab) => (
               <button
                 key={tab.id}
-                className={
-                  tab.id === activeTab
-                    ? 'ios-tabbar__item ios-tabbar__item--active'
-                    : 'ios-tabbar__item'
-                }
+                className={tab.id === activeTab ? 'ios-tabbar__item ios-tabbar__item--active' : 'ios-tabbar__item'}
                 type="button"
                 onClick={() => setActiveTab(tab.id)}
               >
