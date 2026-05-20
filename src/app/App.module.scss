@@ -1,0 +1,20 @@
+@use '../styles/tokens' as *;
+
+.appShell {
+  min-height: 100vh;
+  padding-top: env(safe-area-inset-top);
+  background: $app-bg;
+}
+
+.appContent {
+  padding: 0 20px 120px;
+}
+
+.versionPill {
+  position: fixed;
+  left: 20px;
+  bottom: 92px;
+  z-index: 20;
+  font-size: 12px;
+  color: $label-tertiary;
+}
