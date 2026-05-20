@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react'
 
+import styles from './App.module.scss'
+
 import { Navbar } from '../components/Navbar/Navbar'
 import { TabBar } from '../components/TabBar/TabBar'
 import { ChartIcon, ClockIcon, GearIcon } from '../shared/icons'
@@ -35,16 +37,16 @@ export function App() {
   }, [activeTab])
 
   return (
-    <div className="app-shell">
+    <div className={styles.appShell}>
       <Navbar title={title} />
 
-      <main className="app-content">
+      <main className={styles.appContent}>
         {activeTab === 'history' && <HistoryPage />}
         {activeTab === 'statistics' && <StatisticsPage />}
         {activeTab === 'settings' && <SettingsPage />}
       </main>
 
-      <div className="version-pill">v{appConfig.version}</div>
+      <div className={styles.versionPill}>v{appConfig.version}</div>
 
       <TabBar
         items={tabs}
