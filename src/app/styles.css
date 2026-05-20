@@ -103,10 +103,16 @@ button {
 }
 
 .session-card__top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
   gap: 14px;
+}
+
+.session-card__title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .session-card__title {
@@ -116,11 +122,22 @@ button {
   letter-spacing: -0.03em;
 }
 
+.session-card__competition-medal {
+  margin-top: -2px;
+  font-size: 16px;
+}
+
 .session-card__meta {
   margin: 0;
   color: var(--label-secondary);
   font-size: 15px;
   line-height: 1.35;
+}
+
+.session-card__score-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .session-card__score {
@@ -142,56 +159,16 @@ button {
   font-weight: 500;
 }
 
-.session-card__bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 14px;
-  padding-top: 12px;
-  border-top: 0.5px solid var(--separator);
-  color: var(--label-secondary);
-  font-size: 14px;
-}
-
-.session-card__competition {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.session-card__competition-icon {
-  position: relative;
-  width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  background: rgba(0, 122, 255, 0.12);
-}
-
-.session-card__competition-icon::before,
-.session-card__competition-icon::after {
-  position: absolute;
-  content: '';
-  background: var(--ios-blue);
-  border-radius: 999px;
-}
-
-.session-card__competition-icon::before {
-  top: 3px;
-  left: 3px;
-  width: 6px;
-  height: 6px;
-}
-
-.session-card__competition-icon::after {
-  top: 3px;
-  right: 3px;
-  width: 6px;
-  height: 6px;
+.session-card__average {
+  margin-top: 2px;
+  color: var(--label-tertiary);
+  font-size: 13px;
 }
 
 .session-card__chevron {
+  align-self: center;
   color: #c7c7cc;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
 }
 
