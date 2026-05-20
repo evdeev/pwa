@@ -14,7 +14,7 @@
   border-radius: $radius-card;
 
   @include ios-card-shadow;
-  @include ios-pressable($spring-transition);
+  @include ios-pressable;
 }
 
 .top {
