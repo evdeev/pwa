@@ -1,3 +1,6 @@
+import styles from './Icon.module.scss'
+
 export function ChartIcon() {
-  return <span className="ios-tabbar__icon ios-tabbar__icon--chart" />
+  const className = styles.icon + ' ' + styles.chart
+  return <span className={className} />
 }
