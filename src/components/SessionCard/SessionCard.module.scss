@@ -1,0 +1,102 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.card {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 16px;
+  overflow: hidden;
+  color: inherit;
+  text-align: left;
+  background: $card-bg;
+  border: 0;
+  border-radius: $radius-card;
+
+  @include ios-card-shadow;
+  @include ios-pressable($spring-transition);
+}
+
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 14px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.title {
+  margin: 0 0 5px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.meta {
+  margin: 0;
+  color: $label-secondary;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.scoreWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.score {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  white-space: nowrap;
+  font-size: 28px;
+  letter-spacing: -0.05em;
+
+  strong {
+    font-weight: 700;
+  }
+
+  span {
+    color: $label-tertiary;
+    font-size: 20px;
+    font-weight: 500;
+  }
+}
+
+.average {
+  margin-top: 1px;
+  color: $label-secondary;
+  font-size: 15px;
+}
+
+.chevron {
+  color: #c7c7cc;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.competitionBadge {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: rgba(0,122,255,0.14);
+
+  &::before {
+    position: absolute;
+    top: 4px;
+    left: 5px;
+    width: 5px;
+    height: 3px;
+    content: '';
+    border-bottom: 2px solid $ios-blue;
+    border-left: 2px solid $ios-blue;
+    transform: rotate(-45deg);
+  }
+}
