@@ -1,54 +1,65 @@
-import { useMemo, useState } from 'react'
+import {
+  App as Framework7App,
+  Link,
+  Navbar,
+  Page,
+  Tab,
+  Tabbar,
+  Tabs,
+  Toolbar,
+  View
+} from 'framework7-react'
+
 import { HistoryPage } from '../pages/HistoryPage'
 import { StatisticsPage } from '../pages/StatisticsPage'
 import { SettingsPage } from '../pages/SettingsPage'
 import { appConfig } from './config'
-import type { AppTab } from './types'
 
-const tabs: Array<{ id: AppTab; title: string; icon: string }> = [
-  { id: 'history', title: 'История', icon: 'clock' },
-  { id: 'statistics', title: 'Статистика', icon: 'chart' },
-  { id: 'settings', title: 'Настройки', icon: 'gear' }
-]
+const f7params = {
+  name: appConfig.name,
+  theme: 'ios'
+}
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<AppTab>('history')
-
-  const title = useMemo(() => {
-    return tabs.find((tab) => tab.id === activeTab)?.title ?? 'История'
-  }, [activeTab])
-
   return (
-    <div className="app-shell">
-      <header className="ios-navbar">
-        <div className="ios-navbar__title">{title}</div>
-      </header>
+    <Framework7App {...f7params}>
+      <View main className="safe-areas">
+        <Page pageContent={false}>
+          <Tabs animated>
+            <Tab id="history" className="page-content" tabActive>
+              <Navbar large transparent>
+                <div className="ios-navbar__title">История</div>
+              </Navbar>
 
-      <main className="app-content">
-        {activeTab === 'history' && <HistoryPage />}
-        {activeTab === 'statistics' && <StatisticsPage />}
-        {activeTab === 'settings' && <SettingsPage />}
-      </main>
+              <HistoryPage />
+            </Tab>
 
-      <div className="version-pill">v{appConfig.version}</div>
+            <Tab id="statistics" className="page-content">
+              <Navbar large transparent>
+                <div className="ios-navbar__title">Статистика</div>
+              </Navbar>
 
-      <nav className="ios-tabbar" aria-label="Основная навигация">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            className={
-              tab.id === activeTab
-                ? 'ios-tabbar__item ios-tabbar__item--active'
-                : 'ios-tabbar__item'
-            }
-            type="button"
-            onClick={() => setActiveTab(tab.id)}
-          >
-            <span className={`ios-tabbar__icon ios-tabbar__icon--${tab.icon}`} />
-            <span>{tab.title}</span>
-          </button>
-        ))}
-      </nav>
-    </div>
+              <StatisticsPage />
+            </Tab>
+
+            <Tab id="settings" className="page-content">
+              <Navbar large transparent>
+                <div className="ios-navbar__title">Настройки</div>
+              </Navbar>
+
+              <SettingsPage />
+            </Tab>
+          </Tabs>
+
+          <Toolbar tabbar bottom>
+            <Link tabLink="#history" tabLinkActive iconIos="f7:clock" text="История" />
+            <Link tabLink="#statistics" iconIos="f7:chart_bar" text="Статистика" />
+            <Link tabLink="#settings" iconIos="f7:gear" text="Настройки" />
+          </Toolbar>
+
+          <div className="version-pill">v{appConfig.version}</div>
+        </Page>
+      </View>
+    </Framework7App>
   )
 }
