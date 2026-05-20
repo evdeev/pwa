@@ -1,3 +1,4 @@
+import { Pressable } from '../../shared/ui/Pressable/Pressable'
 import styles from './TabBar.module.scss'
 
 export interface TabBarItem {
@@ -16,7 +17,7 @@ export function TabBar({ items, activeTab, onChange }: TabBarProps) {
   return (
     <nav className={styles.tabbar} aria-label="Основная навигация">
       {items.map((item) => (
-        <button
+        <Pressable
           key={item.id}
           className={item.id === activeTab ? `${styles.item} ${styles.active}` : styles.item}
           type="button"
@@ -24,7 +25,7 @@ export function TabBar({ items, activeTab, onChange }: TabBarProps) {
         >
           {item.icon}
           <span>{item.label}</span>
-        </button>
+        </Pressable>
       ))}
     </nav>
   )
