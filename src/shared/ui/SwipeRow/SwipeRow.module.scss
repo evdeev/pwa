@@ -4,7 +4,6 @@
 .row {
   position: relative;
   overflow: hidden;
-  border-radius: $radius-card;
   background: #ececf1;
 
   @include swipe-ready;
@@ -18,6 +17,7 @@
   justify-content: flex-end;
   gap: 12px;
   padding-right: 16px;
+  background: #ececf1;
 }
 
 .deleteAction {
@@ -50,5 +50,5 @@
 }
 
 .revealed {
-  opacity: 0.78;
+  opacity: 0.72;
 }
