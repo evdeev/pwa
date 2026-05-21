@@ -1,4 +1,5 @@
 import { PageLayout } from '../../../shared/layouts/PageLayout/PageLayout'
+import { PageSection } from '../../../shared/ui/PageSection/PageSection'
 
 import {
   aprilSessions,
@@ -11,29 +12,17 @@ import { SessionGroup } from '../../sessions/ui/SessionGroup'
 export function HistoryPage() {
   return (
     <PageLayout>
-      <section style={{ display: 'grid', gap: '10px' }}>
-        <div style={{ color: '#6e6e73', fontSize: '14px', fontWeight: 700, letterSpacing: '-0.2px' }}>
-          МАЙ 2026
-        </div>
-
+      <PageSection title="МАЙ 2026" compact>
         <SessionGroup sessions={maySessions} />
-      </section>
+      </PageSection>
 
-      <section style={{ display: 'grid', gap: '10px', marginTop: '28px' }}>
-        <div style={{ color: '#6e6e73', fontSize: '14px', fontWeight: 700, letterSpacing: '-0.2px' }}>
-          АПРЕЛЬ 2026
-        </div>
-
+      <PageSection title="АПРЕЛЬ 2026">
         <SessionGroup sessions={aprilSessions} />
-      </section>
+      </PageSection>
 
-      <section style={{ display: 'grid', gap: '10px', marginTop: '28px' }}>
-        <div style={{ color: '#6e6e73', fontSize: '14px', fontWeight: 700, letterSpacing: '-0.2px' }}>
-          МАРТ 2026
-        </div>
-
+      <PageSection title="МАРТ 2026">
         <SessionGroup sessions={marchSessions} />
-      </section>
+      </PageSection>
     </PageLayout>
   )
 }
