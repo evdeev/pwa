@@ -8,6 +8,7 @@ const SWIPE_THRESHOLD = 18
 
 export function SwipeRow({ children }: PropsWithChildren) {
   const [offset, setOffset] = useState(0)
+  const [revealed, setRevealed] = useState(false)
 
   const startX = useRef(0)
   const startY = useRef(0)
@@ -37,6 +38,7 @@ export function SwipeRow({ children }: PropsWithChildren) {
       }
 
       swipeActive.current = true
+      setRevealed(true)
     }
 
     if (deltaX >= 0) {
@@ -60,6 +62,7 @@ export function SwipeRow({ children }: PropsWithChildren) {
 
     if (!swipeActive.current) {
       setOffset(0)
+      setRevealed(false)
       return
     }
 
@@ -69,29 +72,32 @@ export function SwipeRow({ children }: PropsWithChildren) {
     }
 
     setOffset(0)
+    setRevealed(false)
   }
 
   return (
     <div className={styles.row}>
-      <div className={styles.actions}>
-        <div className={styles.deleteAction}>
-          <svg
-            className={styles.deleteIcon}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M3 6h18" />
-            <path d="M8 6V4h8v2" />
-            <path d="M19 6l-1 14H6L5 6" />
-            <path d="M10 11v6" />
-            <path d="M14 11v6" />
-          </svg>
+      {revealed && (
+        <div className={styles.actions}>
+          <div className={styles.deleteAction}>
+            <svg
+              className={styles.deleteIcon}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M3 6h18" />
+              <path d="M8 6V4h8v2" />
+              <path d="M19 6l-1 14H6L5 6" />
+              <path d="M10 11v6" />
+              <path d="M14 11v6" />
+            </svg>
+          </div>
         </div>
-      </div>
+      )}
 
       <div
         className={offset !== 0 ? `${styles.content} ${styles.revealed}` : styles.content}
