@@ -2,13 +2,12 @@
 
 .pressable {
   transition:
-    opacity 120ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    transform 120ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    opacity $motion-fast $ease-ios-fast,
+    background-color $motion-fast ease;
 
   -webkit-tap-highlight-color: transparent;
 }
 
 .pressable:active {
   opacity: 0.72;
-  transform: scale(0.985);
 }
