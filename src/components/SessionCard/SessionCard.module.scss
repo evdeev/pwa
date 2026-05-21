@@ -14,7 +14,7 @@
 }
 
 .card:active {
-  background: rgba(0, 0, 0, 0.12);
+  background: $active-tap-card-bg;
 }
 
 .top {
