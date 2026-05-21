@@ -1,6 +1,6 @@
 import type { SessionSummary } from './types'
 
-export const testSessions: SessionSummary[] = [
+export const maySessions: SessionSummary[] = [
   {
     id: 'test-2026-05-20',
     dateLabel: '20 мая',
@@ -32,6 +32,45 @@ export const testSessions: SessionSummary[] = [
     score: 467,
     maxScore: 600,
     average: 7.78,
+    arrowsCount: 60
+  }
+]
+
+export const aprilSessions: SessionSummary[] = [
+  {
+    id: 'test-2026-04-28',
+    dateLabel: '28 апреля',
+    title: 'Тренировка',
+    type: 'training',
+    distanceMeters: 18,
+    score: 438,
+    maxScore: 600,
+    average: 7.3,
+    arrowsCount: 60
+  },
+  {
+    id: 'test-2026-04-21',
+    dateLabel: '21 апреля',
+    title: 'Соревнование',
+    type: 'competition',
+    distanceMeters: 18,
+    score: 461,
+    maxScore: 600,
+    average: 7.68,
+    arrowsCount: 60
+  }
+]
+
+export const marchSessions: SessionSummary[] = [
+  {
+    id: 'test-2026-03-31',
+    dateLabel: '31 марта',
+    title: 'Первый турнир',
+    type: 'competition',
+    distanceMeters: 18,
+    score: 442,
+    maxScore: 600,
+    average: 7.36,
     arrowsCount: 60
   }
 ]
