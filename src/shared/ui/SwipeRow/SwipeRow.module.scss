@@ -4,14 +4,19 @@
 .row {
   position: relative;
   overflow: hidden;
-  background: #ececf1;
+  background: white;
 
   @include swipe-ready;
+}
+
+.rowRevealed {
+  background: #ececf1;
 }
 
 .actions {
   position: absolute;
   inset: 0;
+  z-index: 0;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -39,9 +44,10 @@
 .content {
   position: relative;
   z-index: 1;
+  width: 100%;
   touch-action: pan-y;
-  will-change: transform, opacity, background-color;
-  background: transparent;
+  will-change: transform, opacity;
+  background: white;
 
   @include ios-motion(transform);
   @include ios-motion(opacity);
