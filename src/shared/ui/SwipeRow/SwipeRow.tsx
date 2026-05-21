@@ -24,6 +24,7 @@ export function SwipeRow({
   const [revealed, setRevealed] = useState(false)
 
   const rowId = useRef(createSwipeId())
+  const rowElement = useRef<HTMLDivElement | null>(null)
 
   const startX = useRef(0)
   const startY = useRef(0)
@@ -31,6 +32,15 @@ export function SwipeRow({
   const swipeActive = useRef(false)
 
   useEffect(() => {
+    function closeCurrentRow() {
+      if (activeSwipeId === rowId.current) {
+        activeSwipeId = null
+      }
+
+      setOffset(0)
+      setRevealed(false)
+    }
+
     function handleCloseSwipe(event: Event) {
       const customEvent = event as CustomEvent<string>
 
@@ -38,16 +48,41 @@ export function SwipeRow({
         return
       }
 
-      setOffset(0)
-      setRevealed(false)
+      closeCurrentRow()
+    }
+
+    function handleGlobalPointerDown(event: globalThis.PointerEvent) {
+      if (!revealed) {
+        return
+      }
+
+      const target = event.target as Node
+
+      if (rowElement.current?.contains(target)) {
+        return
+      }
+
+      closeCurrentRow()
+    }
+
+    function handleScroll() {
+      if (!revealed) {
+        return
+      }
+
+      closeCurrentRow()
     }
 
     window.addEventListener('swipe-row-opened', handleCloseSwipe)
+    window.addEventListener('pointerdown', handleGlobalPointerDown)
+    window.addEventListener('scroll', handleScroll, true)
 
     return () => {
       window.removeEventListener('swipe-row-opened', handleCloseSwipe)
+      window.removeEventListener('pointerdown', handleGlobalPointerDown)
+      window.removeEventListener('scroll', handleScroll, true)
     }
-  }, [])
+  }, [revealed])
 
   function revealCurrentRow() {
     activeSwipeId = rowId.current
@@ -137,7 +172,10 @@ export function SwipeRow({
   const radiusClass = styles[position]
 
   return (
-    <div className={`${styles.row} ${revealed ? styles.rowRevealed : ''} ${radiusClass}`}>
+    <div
+      ref={rowElement}
+      className={`${styles.row} ${revealed ? styles.rowRevealed : ''} ${radiusClass}`}
+    >
       {revealed && (
         <div className={styles.actions}>
           <div className={styles.deleteAction}>
