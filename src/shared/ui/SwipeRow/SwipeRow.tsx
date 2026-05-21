@@ -3,7 +3,7 @@ import { useRef, useState } from 'react'
 
 import styles from './SwipeRow.module.scss'
 
-const ACTION_WIDTH = 88
+const ACTION_WIDTH = 92
 const SWIPE_THRESHOLD = 18
 
 export function SwipeRow({ children }: PropsWithChildren) {
@@ -44,11 +44,11 @@ export function SwipeRow({ children }: PropsWithChildren) {
       return
     }
 
-    const limited = Math.max(deltaX, -ACTION_WIDTH - 24)
+    const limited = Math.max(deltaX, -ACTION_WIDTH - 28)
 
     if (limited < -ACTION_WIDTH) {
       const extra = limited + ACTION_WIDTH
-      setOffset(-ACTION_WIDTH + extra * 0.35)
+      setOffset(-ACTION_WIDTH + extra * 0.32)
       return
     }
 
@@ -63,7 +63,7 @@ export function SwipeRow({ children }: PropsWithChildren) {
       return
     }
 
-    if (offset < -42) {
+    if (offset < -44) {
       setOffset(-ACTION_WIDTH)
       return
     }
@@ -75,7 +75,21 @@ export function SwipeRow({ children }: PropsWithChildren) {
     <div className={styles.row}>
       <div className={styles.actions}>
         <div className={styles.deleteAction}>
-          <div className={styles.deleteIcon} />
+          <svg
+            className={styles.deleteIcon}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M3 6h18" />
+            <path d="M8 6V4h8v2" />
+            <path d="M19 6l-1 14H6L5 6" />
+            <path d="M10 11v6" />
+            <path d="M14 11v6" />
+          </svg>
         </div>
       </div>
 
