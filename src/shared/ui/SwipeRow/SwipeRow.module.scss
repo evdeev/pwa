@@ -1,8 +1,38 @@
+@use '../../../styles/tokens' as *;
 @use '../../../styles/mixins' as *;
 
 .row {
   position: relative;
+  overflow: hidden;
+  border-radius: $radius-card;
 
   @include swipe-ready;
+}
+
+.actions {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+}
+
+.deleteAction {
+  width: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  background: $ios-red;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  touch-action: pan-y;
+  will-change: transform;
+
   @include ios-motion(transform);
 }
