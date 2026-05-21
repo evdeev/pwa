@@ -15,7 +15,6 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 12px;
   padding-right: 16px;
   background: #ececf1;
 }
@@ -28,7 +27,6 @@
   justify-content: center;
   border-radius: 999px;
   background: #ff3b30;
-  box-shadow: 0 10px 30px rgba(255,59,48,0.24);
   flex-shrink: 0;
 }
 
@@ -43,12 +41,12 @@
   z-index: 1;
   touch-action: pan-y;
   will-change: transform, opacity, background-color;
-  background: white;
+  background: transparent;
 
   @include ios-motion(transform);
   @include ios-motion(opacity);
 }
 
 .revealed {
-  opacity: 0.72;
+  opacity: 0.68;
 }
