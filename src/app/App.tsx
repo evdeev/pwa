@@ -8,6 +8,7 @@ import { ChartIcon, ClockIcon, GearIcon } from '../shared/icons'
 import { HistoryPage } from '../pages/HistoryPage'
 import { StatisticsPage } from '../pages/StatisticsPage'
 import { SettingsPage } from '../pages/SettingsPage'
+import { SafeArea } from '../shared/ui/SafeArea/SafeArea'
 import { appConfig } from './config'
 import type { AppTab } from './types'
 
@@ -40,11 +41,13 @@ export function App() {
     <div className={styles.appShell}>
       <Navbar title={title} />
 
-      <main className={styles.appContent}>
-        {activeTab === 'history' && <HistoryPage />}
-        {activeTab === 'statistics' && <StatisticsPage />}
-        {activeTab === 'settings' && <SettingsPage />}
-      </main>
+      <SafeArea withTabBarInset>
+        <main className={styles.appContent}>
+          {activeTab === 'history' && <HistoryPage />}
+          {activeTab === 'statistics' && <StatisticsPage />}
+          {activeTab === 'settings' && <SettingsPage />}
+        </main>
+      </SafeArea>
 
       <div className={styles.versionPill}>v{appConfig.version}</div>
 
