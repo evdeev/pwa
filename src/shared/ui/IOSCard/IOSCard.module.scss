@@ -1,0 +1,20 @@
+@use '../../../styles/tokens' as *;
+
+.card {
+  background: $card-bg;
+  border-radius: $radius-card;
+  overflow: hidden;
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.02),
+    0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.paddedCard {
+  background: $card-bg;
+  border-radius: $radius-card;
+  overflow: hidden;
+  padding: 16px;
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.02),
+    0 8px 24px rgba(0, 0, 0, 0.04);
+}
