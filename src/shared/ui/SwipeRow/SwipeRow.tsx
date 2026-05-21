@@ -6,7 +6,14 @@ import styles from './SwipeRow.module.scss'
 const ACTION_WIDTH = 92
 const SWIPE_THRESHOLD = 18
 
-export function SwipeRow({ children }: PropsWithChildren) {
+type SwipeRowProps = PropsWithChildren<{
+  position?: 'first' | 'middle' | 'last' | 'single'
+}>
+
+export function SwipeRow({
+  children,
+  position = 'middle',
+}: SwipeRowProps) {
   const [offset, setOffset] = useState(0)
   const [revealed, setRevealed] = useState(false)
 
@@ -75,8 +82,10 @@ export function SwipeRow({ children }: PropsWithChildren) {
     setRevealed(false)
   }
 
+  const radiusClass = styles[position]
+
   return (
-    <div className={revealed ? `${styles.row} ${styles.rowRevealed}` : styles.row}>
+    <div className={`${styles.row} ${revealed ? styles.rowRevealed : ''} ${radiusClass}`}>
       {revealed && (
         <div className={styles.actions}>
           <div className={styles.deleteAction}>
