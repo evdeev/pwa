@@ -8,9 +8,32 @@ const SWIPE_THRESHOLD = 6
 const HORIZONTAL_RATIO = 0.55
 
 let activeSwipeId: string | null = null
+let bodyScrollLocked = false
 
 function createSwipeId() {
   return Math.random().toString(36).slice(2)
+}
+
+function lockBodyScroll() {
+  if (bodyScrollLocked) {
+    return
+  }
+
+  document.body.style.overflow = 'hidden'
+  document.documentElement.style.overflow = 'hidden'
+
+  bodyScrollLocked = true
+}
+
+function unlockBodyScroll() {
+  if (!bodyScrollLocked) {
+    return
+  }
+
+  document.body.style.overflow = ''
+  document.documentElement.style.overflow = ''
+
+  bodyScrollLocked = false
 }
 
 type SwipeRowProps = PropsWithChildren<{
@@ -39,6 +62,8 @@ export function SwipeRow({
       if (activeSwipeId === rowId.current) {
         activeSwipeId = null
       }
+
+      unlockBodyScroll()
 
       setOffset(0)
       setRevealed(false)
@@ -81,6 +106,8 @@ export function SwipeRow({
     window.addEventListener('scroll', handleScroll, true)
 
     return () => {
+      unlockBodyScroll()
+
       window.removeEventListener('swipe-row-opened', handleCloseSwipe)
       window.removeEventListener('pointerdown', handleGlobalPointerDown)
       window.removeEventListener('scroll', handleScroll, true)
@@ -132,6 +159,8 @@ export function SwipeRow({
         gestureLocked.current = 'horizontal'
         swipeActive.current = true
 
+        lockBodyScroll()
+
         contentElement.current?.setPointerCapture(event.pointerId)
 
         setRevealed(true)
@@ -167,6 +196,8 @@ export function SwipeRow({
 
   function handlePointerEnd(event: PointerEvent<HTMLDivElement>) {
     dragging.current = false
+
+    unlockBodyScroll()
 
     if (gestureLocked.current === 'horizontal') {
       try {
