@@ -76,7 +76,7 @@ export function SwipeRow({ children }: PropsWithChildren) {
   }
 
   return (
-    <div className={styles.row}>
+    <div className={revealed ? `${styles.row} ${styles.rowRevealed}` : styles.row}>
       {revealed && (
         <div className={styles.actions}>
           <div className={styles.deleteAction}>
@@ -101,7 +101,7 @@ export function SwipeRow({ children }: PropsWithChildren) {
 
       <div
         className={offset !== 0 ? `${styles.content} ${styles.revealed}` : styles.content}
-        style={{ transform: `translateX(${offset}px)` }}
+        style={{ transform: `translate3d(${offset}px, 0, 0)` }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerEnd}
