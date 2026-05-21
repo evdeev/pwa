@@ -21,6 +21,12 @@
   align-items: stretch;
   justify-content: flex-end;
   background: $destructive-bg;
+  opacity: 0;
+  transition: opacity 180ms $ease-ios-fast;
+}
+
+.rowRevealed .actions {
+  opacity: 1;
 }
 
 .deleteAction {
@@ -55,9 +61,9 @@
   touch-action: pan-y;
   will-change: transform, background-color;
   background: $group-card-bg;
-
-  @include ios-motion(transform);
-  @include ios-motion(background-color);
+  transition:
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 180ms $ease-ios-fast;
 }
 
 .revealed {
