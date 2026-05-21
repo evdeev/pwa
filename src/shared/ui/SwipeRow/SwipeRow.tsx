@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 import styles from './SwipeRow.module.scss'
 
 const ACTION_WIDTH = 92
-const SWIPE_THRESHOLD = 18
+const SWIPE_THRESHOLD = 12
+const HORIZONTAL_RATIO = 0.72
 
 let activeSwipeId: string | null = null
 
@@ -25,11 +26,13 @@ export function SwipeRow({
 
   const rowId = useRef(createSwipeId())
   const rowElement = useRef<HTMLDivElement | null>(null)
+  const contentElement = useRef<HTMLDivElement | null>(null)
 
   const startX = useRef(0)
   const startY = useRef(0)
   const dragging = useRef(false)
   const swipeActive = useRef(false)
+  const gestureLocked = useRef<'horizontal' | 'vertical' | null>(null)
 
   useEffect(() => {
     function closeCurrentRow() {
@@ -97,6 +100,7 @@ export function SwipeRow({
   function handlePointerDown(event: PointerEvent<HTMLDivElement>) {
     dragging.current = true
     swipeActive.current = false
+    gestureLocked.current = null
 
     if (activeSwipeId && activeSwipeId !== rowId.current) {
       window.dispatchEvent(
@@ -116,19 +120,33 @@ export function SwipeRow({
     const deltaX = event.clientX - startX.current
     const deltaY = event.clientY - startY.current
 
-    if (!swipeActive.current) {
-      const horizontalIntent = Math.abs(deltaX) > SWIPE_THRESHOLD
-      const isHorizontal = Math.abs(deltaX) > Math.abs(deltaY)
+    if (!gestureLocked.current) {
+      const absX = Math.abs(deltaX)
+      const absY = Math.abs(deltaY)
 
-      if (!horizontalIntent || !isHorizontal) {
+      if (absX < SWIPE_THRESHOLD && absY < SWIPE_THRESHOLD) {
         return
       }
 
-      swipeActive.current = true
-      setRevealed(true)
+      if (absX > absY * HORIZONTAL_RATIO) {
+        gestureLocked.current = 'horizontal'
+        swipeActive.current = true
 
-      revealCurrentRow()
+        contentElement.current?.setPointerCapture(event.pointerId)
+
+        setRevealed(true)
+        revealCurrentRow()
+      } else {
+        gestureLocked.current = 'vertical'
+        return
+      }
     }
+
+    if (gestureLocked.current !== 'horizontal') {
+      return
+    }
+
+    event.preventDefault()
 
     if (deltaX >= 0) {
       setOffset(0)
@@ -146,8 +164,16 @@ export function SwipeRow({
     setOffset(limited)
   }
 
-  function handlePointerEnd() {
+  function handlePointerEnd(event: PointerEvent<HTMLDivElement>) {
     dragging.current = false
+
+    if (gestureLocked.current === 'horizontal') {
+      try {
+        contentElement.current?.releasePointerCapture(event.pointerId)
+      } catch {
+        // noop
+      }
+    }
 
     if (!swipeActive.current) {
       setOffset(0)
@@ -199,6 +225,7 @@ export function SwipeRow({
       )}
 
       <div
+        ref={contentElement}
         className={offset !== 0 ? `${styles.content} ${styles.revealed}` : styles.content}
         style={{ transform: `translate3d(${offset}px, 0, 0)` }}
         onPointerDown={handlePointerDown}
