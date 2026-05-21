@@ -4,13 +4,13 @@
 .row {
   position: relative;
   overflow: hidden;
-  background: white;
+  background: transparent;
 
   @include swipe-ready;
 }
 
 .rowRevealed {
-  background: #ececf1;
+  background: transparent;
 }
 
 .actions {
@@ -21,7 +21,7 @@
   align-items: center;
   justify-content: flex-end;
   padding-right: 16px;
-  background: #ececf1;
+  background: transparent;
 }
 
 .deleteAction {
@@ -46,13 +46,13 @@
   z-index: 1;
   width: 100%;
   touch-action: pan-y;
-  will-change: transform, opacity;
+  will-change: transform, background-color;
   background: white;
 
   @include ios-motion(transform);
-  @include ios-motion(opacity);
+  @include ios-motion(background-color);
 }
 
 .revealed {
-  opacity: 0.68;
+  background: #e7e7ec;
 }
