@@ -7,13 +7,13 @@
 }
 
 .appContent {
-  padding: 0 20px 120px;
+  min-height: 100%;
 }
 
 .versionPill {
   position: fixed;
   left: 20px;
-  bottom: 92px;
+  bottom: calc(env(safe-area-inset-bottom) + 92px);
   z-index: 20;
   font-size: 12px;
   color: $label-tertiary;
