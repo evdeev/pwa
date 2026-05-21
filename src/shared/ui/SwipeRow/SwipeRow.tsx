@@ -1,10 +1,16 @@
 import type { PointerEvent, PropsWithChildren } from 'react'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import styles from './SwipeRow.module.scss'
 
 const ACTION_WIDTH = 92
 const SWIPE_THRESHOLD = 18
+
+let activeSwipeId: string | null = null
+
+function createSwipeId() {
+  return Math.random().toString(36).slice(2)
+}
 
 type SwipeRowProps = PropsWithChildren<{
   position?: 'first' | 'middle' | 'last' | 'single'
@@ -17,14 +23,53 @@ export function SwipeRow({
   const [offset, setOffset] = useState(0)
   const [revealed, setRevealed] = useState(false)
 
+  const rowId = useRef(createSwipeId())
+
   const startX = useRef(0)
   const startY = useRef(0)
   const dragging = useRef(false)
   const swipeActive = useRef(false)
 
+  useEffect(() => {
+    function handleCloseSwipe(event: Event) {
+      const customEvent = event as CustomEvent<string>
+
+      if (customEvent.detail === rowId.current) {
+        return
+      }
+
+      setOffset(0)
+      setRevealed(false)
+    }
+
+    window.addEventListener('swipe-row-opened', handleCloseSwipe)
+
+    return () => {
+      window.removeEventListener('swipe-row-opened', handleCloseSwipe)
+    }
+  }, [])
+
+  function revealCurrentRow() {
+    activeSwipeId = rowId.current
+
+    window.dispatchEvent(
+      new CustomEvent('swipe-row-opened', {
+        detail: rowId.current,
+      }),
+    )
+  }
+
   function handlePointerDown(event: PointerEvent<HTMLDivElement>) {
     dragging.current = true
     swipeActive.current = false
+
+    if (activeSwipeId && activeSwipeId !== rowId.current) {
+      window.dispatchEvent(
+        new CustomEvent('swipe-row-opened', {
+          detail: rowId.current,
+        }),
+      )
+    }
 
     startX.current = event.clientX
     startY.current = event.clientY
@@ -46,6 +91,8 @@ export function SwipeRow({
 
       swipeActive.current = true
       setRevealed(true)
+
+      revealCurrentRow()
     }
 
     if (deltaX >= 0) {
@@ -75,7 +122,12 @@ export function SwipeRow({
 
     if (offset < -44) {
       setOffset(-ACTION_WIDTH)
+      revealCurrentRow()
       return
+    }
+
+    if (activeSwipeId === rowId.current) {
+      activeSwipeId = null
     }
 
     setOffset(0)
