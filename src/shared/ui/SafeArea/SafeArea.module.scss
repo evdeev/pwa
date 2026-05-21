@@ -1,0 +1,13 @@
+@use '../../../styles/tokens' as *;
+
+.safeArea {
+  padding-left: $content-padding;
+  padding-right: $content-padding;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 24px);
+}
+
+.withTabBarInset {
+  padding-left: $content-padding;
+  padding-right: $content-padding;
+  padding-bottom: calc(env(safe-area-inset-bottom) + $tabbar-height + 28px);
+}
