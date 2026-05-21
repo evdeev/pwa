@@ -4,13 +4,13 @@
 .row {
   position: relative;
   overflow: hidden;
-  background: transparent;
+  background: $app-bg;
 
   @include swipe-ready;
 }
 
 .rowRevealed {
-  background: transparent;
+  background: $app-bg;
 }
 
 .actions {
@@ -21,7 +21,7 @@
   align-items: center;
   justify-content: flex-end;
   padding-right: 16px;
-  background: transparent;
+  background: $app-bg;
 }
 
 .deleteAction {
@@ -54,5 +54,5 @@
 }
 
 .revealed {
-  background: #e7e7ec;
+  background: #d9d9df;
 }
