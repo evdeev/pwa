@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 import styles from './SwipeRow.module.scss'
 
 const ACTION_WIDTH = 96
-const SWIPE_THRESHOLD = 14
+const SWIPE_THRESHOLD = 18
 
 export function SwipeRow({ children }: PropsWithChildren) {
   const [offset, setOffset] = useState(0)
@@ -12,11 +12,11 @@ export function SwipeRow({ children }: PropsWithChildren) {
   const startX = useRef(0)
   const startY = useRef(0)
   const dragging = useRef(false)
-  const swipeLocked = useRef(false)
+  const swipeActive = useRef(false)
 
   function handlePointerDown(event: PointerEvent<HTMLDivElement>) {
     dragging.current = true
-    swipeLocked.current = false
+    swipeActive.current = false
 
     startX.current = event.clientX
     startY.current = event.clientY
@@ -28,17 +28,15 @@ export function SwipeRow({ children }: PropsWithChildren) {
     const deltaX = event.clientX - startX.current
     const deltaY = event.clientY - startY.current
 
-    if (!swipeLocked.current) {
-      if (Math.abs(deltaY) > Math.abs(deltaX)) {
-        dragging.current = false
+    if (!swipeActive.current) {
+      const horizontalIntent = Math.abs(deltaX) > SWIPE_THRESHOLD
+      const isHorizontal = Math.abs(deltaX) > Math.abs(deltaY)
+
+      if (!horizontalIntent || !isHorizontal) {
         return
       }
 
-      if (Math.abs(deltaX) < SWIPE_THRESHOLD) {
-        return
-      }
-
-      swipeLocked.current = true
+      swipeActive.current = true
     }
 
     if (deltaX >= 0) {
@@ -59,6 +57,11 @@ export function SwipeRow({ children }: PropsWithChildren) {
 
   function handlePointerEnd() {
     dragging.current = false
+
+    if (!swipeActive.current) {
+      setOffset(0)
+      return
+    }
 
     if (offset < -56) {
       setOffset(-ACTION_WIDTH)
