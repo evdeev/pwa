@@ -1,6 +1,8 @@
 import type { SessionSummary } from '../../../entities/session/types'
 
+import { IOSList } from '../../../shared/ui/IOSList/IOSList'
 import { SwipeRow } from '../../../shared/ui/SwipeRow/SwipeRow'
+
 import { SessionCard } from './SessionCard'
 
 import styles from './SessionGroup.module.scss'
@@ -11,7 +13,7 @@ interface SessionGroupProps {
 
 export function SessionGroup({ sessions }: SessionGroupProps) {
   return (
-    <div className={styles.group}>
+    <IOSList>
       {sessions.map((session, index) => (
         <div key={session.id}>
           <SwipeRow>
@@ -21,6 +23,6 @@ export function SessionGroup({ sessions }: SessionGroupProps) {
           {index !== sessions.length - 1 && <div className={styles.divider} />}
         </div>
       ))}
-    </div>
+    </IOSList>
   )
 }
