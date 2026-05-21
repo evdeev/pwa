@@ -3,7 +3,7 @@ import { useRef, useState } from 'react'
 
 import styles from './SwipeRow.module.scss'
 
-const ACTION_WIDTH = 96
+const ACTION_WIDTH = 88
 const SWIPE_THRESHOLD = 18
 
 export function SwipeRow({ children }: PropsWithChildren) {
@@ -63,7 +63,7 @@ export function SwipeRow({ children }: PropsWithChildren) {
       return
     }
 
-    if (offset < -56) {
+    if (offset < -42) {
       setOffset(-ACTION_WIDTH)
       return
     }
@@ -74,11 +74,13 @@ export function SwipeRow({ children }: PropsWithChildren) {
   return (
     <div className={styles.row}>
       <div className={styles.actions}>
-        <div className={styles.deleteAction}>Удалить</div>
+        <div className={styles.deleteAction}>
+          <div className={styles.deleteIcon} />
+        </div>
       </div>
 
       <div
-        className={styles.content}
+        className={offset !== 0 ? `${styles.content} ${styles.revealed}` : styles.content}
         style={{ transform: `translateX(${offset}px)` }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
