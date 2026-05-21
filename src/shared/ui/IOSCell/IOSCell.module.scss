@@ -1,0 +1,43 @@
+@use '../../../styles/tokens' as *;
+
+.cell {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 60px;
+  padding: 14px 16px;
+}
+
+.interactiveCell {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 60px;
+  padding: 14px 16px;
+  transition:
+    background-color $motion-fast $ease-ios-fast,
+    transform $motion-fast $ease-ios-fast;
+
+  &:active {
+    background: $active-tap-card-bg;
+  }
+}
+
+.before {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.after {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
