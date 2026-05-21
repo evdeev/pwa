@@ -1,0 +1,25 @@
+@use '../../../styles/tokens' as *;
+
+.section {
+  display: grid;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.compactSection {
+  display: grid;
+  gap: 10px;
+}
+
+.title {
+  color: $label-secondary;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  text-transform: uppercase;
+}
+
+.content {
+  display: grid;
+  gap: 12px;
+}
