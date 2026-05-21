@@ -1,5 +1,4 @@
 @use '../../styles/tokens' as *;
-@use '../../styles/mixins' as *;
 
 .card {
   position: relative;
@@ -9,12 +8,13 @@
   overflow: hidden;
   color: inherit;
   text-align: left;
-  background: $card-bg;
+  background: transparent;
   border: 0;
-  border-radius: $radius-card;
+  border-radius: 0;
+}
 
-  @include ios-card-shadow;
-  @include ios-pressable;
+.card:active {
+  background: rgba(0, 0, 0, 0.12);
 }
 
 .top {
