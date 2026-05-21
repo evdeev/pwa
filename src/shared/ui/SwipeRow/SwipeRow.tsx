@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 import styles from './SwipeRow.module.scss'
 
 const ACTION_WIDTH = 92
-const SWIPE_THRESHOLD = 12
-const HORIZONTAL_RATIO = 0.72
+const SWIPE_THRESHOLD = 6
+const HORIZONTAL_RATIO = 0.55
 
 let activeSwipeId: string | null = null
 
@@ -147,6 +147,7 @@ export function SwipeRow({
     }
 
     event.preventDefault()
+    event.stopPropagation()
 
     if (deltaX >= 0) {
       setOffset(0)
