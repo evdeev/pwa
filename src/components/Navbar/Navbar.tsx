@@ -7,38 +7,36 @@ interface NavbarProps {
   title: string
 }
 
-const COLLAPSE_DISTANCE = 72
-
 export function Navbar({ title }: NavbarProps) {
-  const [progress, setProgress] = useState(0)
+  const [collapsed, setCollapsed] = useState(false)
 
   useEffect(() => {
-    let animationFrame = 0
+    const sentinel = document.querySelector('[data-navbar-sentinel]')
 
-    function updateProgress() {
-      const nextProgress = Math.min(window.scrollY / COLLAPSE_DISTANCE, 1)
-      setProgress(nextProgress)
+    if (!sentinel) {
+      return
     }
 
-    function handleScroll() {
-      cancelAnimationFrame(animationFrame)
-      animationFrame = requestAnimationFrame(updateProgress)
-    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setCollapsed(!entry.isIntersecting)
+      },
+      {
+        threshold: 0,
+      },
+    )
 
-    updateProgress()
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
+    observer.observe(sentinel)
 
     return () => {
-      cancelAnimationFrame(animationFrame)
-      window.removeEventListener('scroll', handleScroll)
+      observer.disconnect()
     }
   }, [])
 
   return (
     <header
-      className={styles.navbar}
-      style={{ '--collapse-progress': progress } as CSSProperties}
+      className={`${styles.navbar} ${collapsed ? styles.collapsed : ''}`}
+      style={{ '--collapse-progress': collapsed ? 1 : 0 } as CSSProperties}
     >
       <div className={styles.compactTitle}>{title}</div>
       <div className={styles.largeTitle}>{title}</div>
