@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import type { UIEvent } from 'react'
 
 import styles from './App.module.scss'
 
@@ -30,25 +31,36 @@ const tabs = [
   }
 ]
 
+const COLLAPSE_DISTANCE = 96
+
 export function App() {
   const [activeTab, setActiveTab] = useState<AppTab>('history')
+  const [navbarProgress, setNavbarProgress] = useState(0)
 
   const title = useMemo(() => {
     return tabs.find((tab) => tab.id === activeTab)?.label ?? 'История'
   }, [activeTab])
 
+  function handleAppScroll(event: UIEvent<HTMLDivElement>) {
+    const scrollTop = event.currentTarget.scrollTop
+    const nextProgress = Math.min(Math.max(scrollTop / COLLAPSE_DISTANCE, 0), 1)
+
+    setNavbarProgress(nextProgress)
+  }
+
   return (
     <div className={styles.appShell}>
-      <Navbar title={title} />
-      <div className={styles.navbarSentinel} data-navbar-sentinel />
+      <div className={styles.appScroll} onScroll={handleAppScroll}>
+        <Navbar title={title} progress={navbarProgress} />
 
-      <SafeArea withTabBarInset>
-        <main className={styles.appContent}>
-          {activeTab === 'history' && <HistoryPage />}
-          {activeTab === 'statistics' && <StatisticsPage />}
-          {activeTab === 'settings' && <SettingsPage />}
-        </main>
-      </SafeArea>
+        <SafeArea withTabBarInset>
+          <main className={styles.appContent}>
+            {activeTab === 'history' && <HistoryPage />}
+            {activeTab === 'statistics' && <StatisticsPage />}
+            {activeTab === 'settings' && <SettingsPage />}
+          </main>
+        </SafeArea>
+      </div>
 
       <div className={styles.versionPill}>v{appConfig.version}</div>
 
