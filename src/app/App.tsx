@@ -40,6 +40,7 @@ export function App() {
   return (
     <div className={styles.appShell}>
       <Navbar title={title} />
+      <div className={styles.navbarSentinel} data-navbar-sentinel />
 
       <SafeArea withTabBarInset>
         <main className={styles.appContent}>
